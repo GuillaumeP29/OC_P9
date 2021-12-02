@@ -1,0 +1,19 @@
+{% extends 'nav_base.html' %}
+
+{% block content %}
+    <div class="ticket container d-flex flex-column align-items-center">
+        <h2>Créer la critique de l'oeuvre " {{ticket}} "</h2>
+        <h4>{{ ticket.title }}</h4>
+        <p class="description">{{ ticket.description }}</p>
+        <img src="../../media/{{ ticket.image }}">
+        <p class="infos">Demande créée le {{ ticket.time_created }}<br>Par {{ ticket.user }}</p>
+    </div>
+    <form method="post" action="{% url 'ticket_review' %}" enctype="multipart/form-data" class="container d-flex flex-column align-items-center">
+        {% csrf_token %}
+        <h3>Quel est votre avis sur l'oeuvre ?</h3>
+        {{ review_form.as_p }}
+        {{ticket.id}}
+        <input type="hidden" name="ticket_id" value={{ticket.id}} />
+        <button type="submit">Valider la critique</button>
+    </form>
+{% endblock content %}

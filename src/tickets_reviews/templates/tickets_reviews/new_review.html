@@ -1,0 +1,13 @@
+{% extends 'nav_base.html' %}
+
+{% block content %}
+    <h2>Créer une critique</h2>
+    <form method="post" enctype="multipart/form-data">
+        <h3>Sur quelle oeuvre souhaitez-vous donner un avis ?</h3>
+        {{ ticket_form.as_p }}
+        <h3>Quel est votre avis sur l'oeuvre ?</h3>
+        {{ review_form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Valider l'oeuvre et la critique</button>
+    </form>
+{% endblock content %}

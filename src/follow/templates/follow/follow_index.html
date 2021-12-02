@@ -1,0 +1,50 @@
+{% extends 'nav_base.html' %}
+
+{% load static %}
+
+{% block link %}<link rel="stylesheet" href="{% static 'css/follow_style.css' %}">{% endblock link %}
+
+{% block content %}
+    
+    <div class="followed_users container">
+        <h2>Personnes suivies</h2>
+        {% if not followed_users %}
+            <p>Vous ne suivez personne pour le moment</p>
+        {% else %}
+            {% for user in followed_users %}
+                <div class="followed_user d-flex">
+                    <div class="col-9">{{user}}</div>
+                    <form class="col-3" method="post" action="{% url 'delete_follow' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value={{user.id}} />
+                        <button type="submit">Me désabonner</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% endif %}
+    <p>Si vous souhaitez suivre de nouvelles personnes, cliquez <a href="{% url 'user_follow' %}">ici pour afficher la liste des utilisateurs</a></p>
+    </div>
+    <div class="followers">
+        {% if not followers %}
+            <p>Personne ne vous suit pour le moment</p>
+        {% else %}
+        <div class="container d-flex">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2"><h2>Personnes qui vous suivent</h2></th>
+                    </tr>
+                </thead>
+                {% for follower in followers %}
+                    <tbody>
+                        <tr class="follower">
+                            <td class="col-9">{{ follower }}</td>
+                            <td class="col-3"></td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}

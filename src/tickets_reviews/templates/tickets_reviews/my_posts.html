@@ -1,0 +1,79 @@
+{% extends 'nav_base.html' %}
+
+{% load static %}
+
+{% block link %}<link rel="stylesheet" href="{% static 'css/feed_style.css' %}">{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="buttons d-flex justify-content-center">
+            <a class="col-5 mx-auto btn btn-secondary btn-lg" href="{% url 'create_ticket' %}">Demander une critique</a>
+            <a class="col-5 mx-auto btn btn-secondary btn-lg" href="{% url 'new_review' %}">Créer une critique</a>
+        </div>
+        <h2>Voici vos publications</h2>
+        {% for article in articles %}
+            <article class="article">
+                {% if article.0 == "review" %}
+                    <h4>Critique</h4>
+                    <div class="review d-flex flex-column align-items-center">
+                        <h3>{{ article.1.headline }}</h3>
+                        <img class="col-2" src="../../static/{{ article.3 }}">
+                        <p class="body">{{ article.1.body }}</p>
+                        <p class="infos">Vous avez donné votre avis le {{ article.1.time_created }}</p>
+                        <h5>Demande</h5>
+                        <div class="ticket d-flex flex-column align-items-center">
+                            <p class="description">{{ article.2.description }}</p>
+                            {% if article.2.image is not None %}
+                                <img src="../../media/{{ article.2.image }}">
+                            {% else %}
+                                <p>L'auteur n'a pas posté d'image.</p>
+                            {% endif %}
+                            <p class="infos">Demande créée le {{ article.2.time_created }}<br>Par {{ article.2.user }}</p>
+                        </div>
+                        <div class="form d-flex col-6">
+                            <form action="{% url 'edit_review' %}" method="post" class="col-6 d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" name="review_id" value={{article.1.id}} />
+                                <input type="hidden" name="ticket_id" value={{article.2.id}} />
+                                <button class="col-10 mx-auto btn btn-lg btn-secondary" type="submit">Modifer la critique</button>
+                            </form>
+                            <form action="{% url 'delete_review' %}" method="post" class="col-6 d-flex">
+                                {% csrf_token %}
+                                <input type="hidden" name="review_id" value={{article.1.id}} />
+                                <input type="hidden" name="ticket_id" value={{article.2.id}} />
+                                <button class="col-10 mx-auto btn btn-lg btn-secondary" type="submit">Supprimer la critique</button>
+                            </form>
+                        </div>
+                    </div>
+                {% elif article.0 == "ticket" %}
+                    <h4>Demande</h4>
+                    <div class="ticket d-flex flex-column align-items-center">
+                        <h3>{{ article.1.title }}</h3>
+                        <p class="description">{{ article.1.description }}</p>
+                        {% if article.1.image is not None %}
+                            <img src="../../media/{{ article.1.image }}">
+                        {% else %}
+                            <p>L'auteur n'a pas posté d'image.</p>
+                        {% endif %}
+                        <p class="infos">Vous avez créé la demande créée le {{ article.1.time_created }}</p>
+                        {% if article.1.answered and article.2.user_id == request.user.id or not article.1.answered %}
+                            <div class="form d-flex col-6">
+                                <form action="{% url 'edit_ticket' %}" method="post" class="col-6 d-flex">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="ticket_id" value={{article.1.id}} />
+                                    <button class="col-10 mx-auto btn btn-lg btn-secondary" type="submit">Modifier l'oeuvre</button>
+                                </form>
+                                <form action="{% url 'delete_ticket' %}" method="post" class="col-6 d-flex">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="ticket_id" value={{article.1.id}} />
+                                    <button class="col-10 mx-auto btn btn-lg btn-secondary" type="submit">Supprimer l'oeuvre</button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <button type="button" class="btn btn-lg" disabled>Vous ne pouvez modifier ou supprimer une demande ayant reçu une critique dont vous n'êtes pas l'auteur</button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </article>
+        {% endfor %}
+    </div>
+{% endblock content %}

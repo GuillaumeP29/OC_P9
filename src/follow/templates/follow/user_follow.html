@@ -1,0 +1,19 @@
+{% extends 'nav_base.html' %}
+
+{% load static %}
+
+{% block link %}<link rel="stylesheet" href="{% static 'css/follow_style.css' %}">{% endblock link %}
+
+{% block content %}
+    <div class="container">
+        <h4>Liste d'utilisateurs non suivis</h4>
+        {% for user in users %}
+            <form method="post" action="{% url 'user_follow' %}">
+                {% csrf_token %}
+                {{ user }}
+                <input type="hidden" name="followed_user_id" value={{user.id}} />
+                <button type="submit">Suivre</button>
+            </form>
+        {% endfor %}
+    </div>
+{% endblock content %}

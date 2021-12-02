@@ -1,0 +1,1 @@
+C:\Users\guill\Desktop\OC_P9\Programme\env\Scripts\python.exe C:\Users\guill\Desktop\OC_P9\Programme\src\manage.py runserver

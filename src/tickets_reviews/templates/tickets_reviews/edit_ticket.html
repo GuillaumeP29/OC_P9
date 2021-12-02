@@ -1,0 +1,12 @@
+{% extends 'nav_base.html' %}
+
+{% block content %}
+    <h2>Modification de l'oeuvre {{ticket}} </h2>
+    <form method="post" action="{% url 'edit_ticket' %}" enctype="multipart/form-data" class="container d-flex flex-column align-items-center">
+        {% csrf_token %}
+        <h3>Modifier les éléments que vous souhaitez</h3>
+        {{ form.as_p }}
+        <input type="hidden" name="ticket_id" value={{ticket.id}} />
+        <button type="submit">Valider la critique</button>
+    </form>
+{% endblock content %}

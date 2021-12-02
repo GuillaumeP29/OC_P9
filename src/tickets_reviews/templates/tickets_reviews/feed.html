@@ -1,0 +1,57 @@
+{% extends 'nav_base.html' %}
+{% load static %}
+
+{% block link %}<link rel="stylesheet" href="{% static 'css/feed_style.css' %}">{% endblock %}
+{% block title %}<title>Flux</title>{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="buttons d-flex justify-content-center">
+            <a class="col-5 mx-auto btn btn-secondary btn-lg" href="{% url 'create_ticket' %}">Demander une critique</a>
+            <a class="col-5 mx-auto btn btn-secondary btn-lg" href="{% url 'new_review' %}">Créer une critique</a>
+        </div>
+        <h2>Voici les dernières publications</h2>
+        {% for article in articles %}
+            <article class="article">
+                {% if article.0 == "review" %}
+                    <div class="review d-flex flex-column align-items-center">
+                        <h3>{{ article.1.headline }}</h3>
+                        <p class="body">{{ article.1.body }}</p>
+                        <img class="col-2" src="../../static/{{ article.3 }}">
+                        <p class="infos">Avis donné le {{ article.1.time_created }}<br>Par {{ article.1.user }}</p>
+                        <div class="ticket d-flex flex-column align-items-center">
+                            <h4>{{ article.2.title }}</h4>
+                            <p class="description">{{ article.2.description }}</p>
+                            {% if article.2.image is not "" %}
+                                <img src="../../media/{{ article.2.image }}">
+                            {% else %}
+                                <p>L'auteur n'a pas posté d'image.</p>
+                            {% endif %}
+                            <p class="infos">Demande créée le {{ article.2.time_created }}<br>Par {{ article.2.user }}</p>
+                        </div>
+                    </div>
+                {% elif article.0 == "ticket" %}
+                    <div class="ticket d-flex flex-column align-items-center">
+                        <h3>{{ article.1.title }}</h3>
+                        <p class="description">{{ article.1.description }}</p>
+                        {% if article.1.image is not "" %}
+                            <img src="../../media/{{ article.1.image }}">
+                        {% else %}
+                            <p>L'auteur n'a pas posté d'image.</p>
+                        {% endif %}
+                        <p class="infos">Demande créée le {{ article.1.time_created }}<br>Par {{ article.1.user }}</p>
+                        {% if not article.1.answered %}
+                            <form action="{% url 'ticket_review' %}" method="post" class="d-flex col-5 flex-column align-items-center">
+                                {% csrf_token %}
+                                <input type="hidden" name="ticket_id" value={{article.1.id}} />
+                                <button class="col-6 mx-auto btn btn-lg btn-secondary" type="submit">Créer la critique</button>
+                            </form>
+                        {% else %}
+                            <button type="button" class="btn btn-lg" disabled>Une réponse a déjà été apportée</button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </article>
+        {% endfor %}
+    </div>
+{% endblock content %}
