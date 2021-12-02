@@ -41,12 +41,20 @@ Veuillez taper la commande suivante dans votre console : " *cd OC_P9* ".
 
 
 # 6. Installation les dépendances
-
+Afin d'installer automatiquement tous les dépendences nécessaires au projet, dans le terminal, utilisez la commande suivante : " *pip install -r requirements.txt* "
 
 ---
 
 
 # 7. Lancer le serveur
+* Rendez-vous dans le dossier src du projet à l'aide de la commande : " *cd src* ".
+* Lancer la commande suivante : " *python manage.py runserver* "
 
+---
+
+
+# 8. Accéder au site web
+* Ouvrez le navigateur de votre choix.
+* Dans l'URL, veuillez rentrer l'adresse du serveur indiquée dans la console lors du démarrage du serveur. Par exemple " *http://127.0.0.1:8000/* "
 
 ---
