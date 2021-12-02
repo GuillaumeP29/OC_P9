@@ -41,14 +41,21 @@ Veuillez taper la commande suivante dans votre console : " *cd OC_P9* ".
 
 
 # 6. Installation les dépendances
-Afin d'installer automatiquement tous les dépendences nécessaires au projet, dans le terminal, utilisez la commande suivante : " *pip install -r requirements.txt* "
-
+Afin d'installer automatiquement tous les dépendences nécessaires au projet, dans le terminal, utilisez la commande suivante :
+#### Windows :
+" *pip install -r requirements.txt* "
+#### Unix :
+" *python3 -m pip install -r requirments.txt* "
 ---
 
 
 # 7. Lancer le serveur
 * Rendez-vous dans le dossier src du projet à l'aide de la commande : " *cd src* ".
-* Lancer la commande suivante : " *python manage.py runserver* "
+* Lancer la commande suivante :
+#### Windows :
+" *python manage.py runserver* "
+#### Unix :
+" *python3 manage.py runserver* "
 
 ---
 
@@ -65,6 +72,7 @@ Afin d'installer automatiquement tous les dépendences nécessaires au projet, d
 Celui-ci a normalement déjà été installé grâce au fichier requirements.txt.
 Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
 Un fichier .flake8 est inclus au projet afin de faciliter la création du rapport flake8. Il est tout de même possible de le supprimer ou le modifier pour personnaliser le rapport.
+Pour fonctionner correctement, il faut également installer le plugin html de flake8 à l'aide de la commande : " *pip install flake8-html* "
 #### Lancer le rapport d'erreur :
 Entrez la commande suivante dans votre console :
 " *flake8* "

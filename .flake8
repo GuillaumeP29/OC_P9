@@ -9,4 +9,6 @@ exclude =
     README.md,
     requirements.txt,
     .gitignore
+select =
+    .py
 max-line-length = 119
