@@ -34,18 +34,17 @@ def feed(request):
             if article.user_id == id:
                 followers_articles.append(article)
                 articles.remove(article)
-    articles = followers_articles + articles
+    articles = followers_articles  # + articles : Pour rajouter les articles des non abonnés à la suite des abonnés.
     article_list = []
     for article in articles:
         article_data = []
         if isinstance(article, models.Ticket):
-            article_data.append("ticket")
-            article_data.append(article)
+            article_data.append(("ticket", article))
         else:
-            article_data.append("review")
-            article_data.append(article)
-            article_data.append(get_object_or_404(models.Ticket, id=article.ticket_id))
-            article_data.append(RATINGS[str(article.rating)])
+            article_data.append((
+                "review", article, get_object_or_404(models.Ticket, id=article.ticket_id),
+                RATINGS[str(article.rating)]
+                ))
         article_list.append(article_data)
     return render(request, "tickets_reviews/feed.html", context={'articles': article_list})
 
@@ -61,16 +60,15 @@ def my_posts(request):
     for article in articles_list:
         article_data = []
         if isinstance(article, models.Ticket):
-            article_data.append("ticket")
-            article_data.append(article)
+            article_data.append(("ticket", article))
             if article.answered:
                 review = models.Review.objects.get(ticket_id=article.id)
                 article_data.append(review)
         else:
-            article_data.append("review")
-            article_data.append(article)
-            article_data.append(get_object_or_404(models.Ticket, id=article.ticket_id))
-            article_data.append(RATINGS[str(article.rating)])
+            article_data.append((
+                "review", article, get_object_or_404(models.Ticket, id=article.ticket_id),
+                RATINGS[str(article.rating)]
+                ))
         articles_dict.append(article_data)
     return render(request, "tickets_reviews/my_posts.html", context={'articles': articles_dict})
 

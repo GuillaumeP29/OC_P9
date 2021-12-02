@@ -13,37 +13,37 @@
         <h2>Voici les dernières publications</h2>
         {% for article in articles %}
             <article class="article">
-                {% if article.0 == "review" %}
+                {% if article.0.0 == "review" %}
                     <div class="review d-flex flex-column align-items-center">
-                        <h3>{{ article.1.headline }}</h3>
-                        <p class="body">{{ article.1.body }}</p>
-                        <img class="col-2" src="../../static/{{ article.3 }}">
-                        <p class="infos">Avis donné le {{ article.1.time_created }}<br>Par {{ article.1.user }}</p>
+                        <h3>{{ article.0.1.headline }}</h3>
+                        <p class="body">{{ article.0.1.body }}</p>
+                        <img class="col-2" src="../../static/{{ article.0.3 }}">
+                        <p class="infos">Avis donné le {{ article.0.1.time_created }}<br>Par {{ article.0.1.user }}</p>
                         <div class="ticket d-flex flex-column align-items-center">
-                            <h4>{{ article.2.title }}</h4>
-                            <p class="description">{{ article.2.description }}</p>
-                            {% if article.2.image is not "" %}
-                                <img src="../../media/{{ article.2.image }}">
+                            <h4>{{ article.0.2.title }}</h4>
+                            <p class="description">{{ article.0.2.description }}</p>
+                            {% if article.0.2.image is not "" %}
+                                <img src="../../media/{{ article.0.2.image }}">
                             {% else %}
                                 <p>L'auteur n'a pas posté d'image.</p>
                             {% endif %}
-                            <p class="infos">Demande créée le {{ article.2.time_created }}<br>Par {{ article.2.user }}</p>
+                            <p class="infos">Demande créée le {{ article.0.2.time_created }}<br>Par {{ article.0.2.user }}</p>
                         </div>
                     </div>
-                {% elif article.0 == "ticket" %}
+                {% elif article.0.0 == "ticket" %}
                     <div class="ticket d-flex flex-column align-items-center">
-                        <h3>{{ article.1.title }}</h3>
-                        <p class="description">{{ article.1.description }}</p>
-                        {% if article.1.image is not "" %}
-                            <img src="../../media/{{ article.1.image }}">
+                        <h3>{{ article.0.1.title }}</h3>
+                        <p class="description">{{ article.0.1.description }}</p>
+                        {% if article.0.1.image is not "" %}
+                            <img src="../../media/{{ article.0.1.image }}">
                         {% else %}
                             <p>L'auteur n'a pas posté d'image.</p>
                         {% endif %}
-                        <p class="infos">Demande créée le {{ article.1.time_created }}<br>Par {{ article.1.user }}</p>
-                        {% if not article.1.answered %}
+                        <p class="infos">Demande créée le {{ article.0.1.time_created }}<br>Par {{ article.0.1.user }}</p>
+                        {% if not article.0.1.answered %}
                             <form action="{% url 'ticket_review' %}" method="post" class="d-flex col-5 flex-column align-items-center">
                                 {% csrf_token %}
-                                <input type="hidden" name="ticket_id" value={{article.1.id}} />
+                                <input type="hidden" name="ticket_id" value={{article.0.1.id}} />
                                 <button class="col-6 mx-auto btn btn-lg btn-secondary" type="submit">Créer la critique</button>
                             </form>
                         {% else %}
