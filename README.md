@@ -49,7 +49,21 @@ Afin d'installer automatiquement tous les dépendences nécessaires au projet, d
 ---
 
 
-# 7. Lancer le serveur
+# 7. Générer le rapport d'erreur flake8
+#### Installer flake8 :
+Celui-ci a normalement déjà été installé grâce au fichier requirements.txt.
+Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
+Un fichier .flake8 est inclus au projet afin de faciliter la création du rapport flake8. Il est tout de même possible de le supprimer ou le modifier pour personnaliser le rapport.
+Pour fonctionner correctement, il faut également installer le plugin html de flake8 à l'aide de la commande : " *pip install flake8-html* "
+#### Lancer le rapport d'erreur :
+Entrez la commande suivante dans votre console :
+" *flake8* "
+Cette commande sera configurée automatiquement par le fichier .flake8 inclus au projet.
+
+---
+
+
+# 8. Lancer le serveur
 * Rendez-vous dans le dossier src du projet à l'aide de la commande : " *cd src* ".
 * Lancer la commande suivante :
 #### Windows :
@@ -60,22 +74,8 @@ Afin d'installer automatiquement tous les dépendences nécessaires au projet, d
 ---
 
 
-# 8. Accéder au site web
+# 9. Accéder au site web
 * Ouvrez le navigateur de votre choix.
 * Dans l'URL, veuillez rentrer l'adresse du serveur indiquée dans la console lors du démarrage du serveur. Par exemple " *http://127.0.0.1:8000/* "
-
----
-
-
-# 9. Générer le rapport d'erreur flake8
-#### Installer flake8 :
-Celui-ci a normalement déjà été installé grâce au fichier requirements.txt.
-Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
-Un fichier .flake8 est inclus au projet afin de faciliter la création du rapport flake8. Il est tout de même possible de le supprimer ou le modifier pour personnaliser le rapport.
-Pour fonctionner correctement, il faut également installer le plugin html de flake8 à l'aide de la commande : " *pip install flake8-html* "
-#### Lancer le rapport d'erreur :
-Entrez la commande suivante dans votre console :
-" *flake8* "
-Cette commande sera configurée automatiquement par le fichier .flake8 inclus au projet.
 
 ---
