@@ -1,6 +1,4 @@
 /env
 /.vscode
 notes.txt
-*/__pycache__
-src/db.sqlite3
 flake-report/

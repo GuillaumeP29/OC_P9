@@ -11,7 +11,7 @@ Application web Django de critiques littéraires.
 
 
 # 2. Importer le projet depuis github
-Veuillez taper la commande suivante dans votre console : " *git clone https://github.com/GuillaumeP29/OC_P.git* ".
+Veuillez taper la commande suivante dans votre console : " *git clone https://github.com/GuillaumeP29/OC_P9.git* ".
 
 ---
 
